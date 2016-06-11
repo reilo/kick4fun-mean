@@ -1,0 +1,55 @@
+<div ng-controller='AdminCtrl'>
+    <div class="row">
+        <div class="large-12 columns">
+            <h3>Admin-Funktionen</h3>
+        </div>
+        <div class="large-6 columns">
+            <div class="callout warning">
+                <button type="button" class="warning button" ng-click="closeRound()"
+                        ng-confirm-click="Die laufende Spielwoche wirklich beenden? Das kann nicht rückgängig gemacht werden!"
+                        ng-disabled="status != 'progress'">Aktuelle Runde
+                    beenden
+                </button>
+                <p>Die aktuelle Spielwoche wird abgeschlossen und das Turnier pausiert. Im pausierten
+                    Zustand können neue Teilnehmer hinzugefügt werden.</p>
+            </div>
+        </div>
+        <div class="large-6 columns">
+            <div class="callout success">
+                <button type="button" class="success button" ng-click="openRound()"
+                        ng-confirm-click="Wirklich eine neue Spielwoche starten? Das kann nicht rückgängig gemacht werden!"
+                        ng-disabled="status != 'paused'">Neue Runde starten
+                </button>
+                <p>Die neue Spielwoche wird gestartet und das Turnier fortgesetzt. Anschließend können wieder
+                    neue Spiele eingegeben werden.</p>
+            </div>
+        </div>
+        <div class="large-12 columns">
+            <div class="callout">
+                <div class="row">
+                    <fieldset class="large-6 columns">
+                        <h4>Teilnehmerliste ({{participants.length}} Teilnehmer)</h4>
+                    </fieldset>
+                    <fieldset class="small-6 columns">
+                        <form name="addParticipantForm">
+                            <input type="text" ng-model="participantName" required ng-disabled="status != 'paused'"
+                                   placeholder="Name des neuen Teilnehmers">
+                            <button type="submit" class="button" ng-click="addParticipant()"
+                                    ng-disabled="status != 'paused' || addParticipantForm.$invalid"
+                                    ng-confirm-click="Neuen Teilnehmer wirklich hinzufügen?"
+                            >Teilnehmer hinzufügen
+                            </button>
+                            <div class="callout small error" data-ng-messages="serverErrors"
+                                 data-ng-show="addParticipantForm.$submitted" data-ng-cloak>
+                                <p data-ng-message="internal">{{serverErrors.internal}}</p>
+                            </div>
+                        </form>
+                    </fieldset>
+                    <fieldset ng-repeat="item in participants" class="small-3 columns">
+                        {{item}}
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

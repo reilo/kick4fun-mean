@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OTSAP Kickerliga</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css"-->
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script></head>
+<body>
+<div class="row">
+    <div class="top-bar" id="nav-menu">
+        <div class="top-bar-left">
+            <ul class="dropdown menu" role="menubar">
+                <li class="menu-text">OTSAP Kickerliga</li>
+                <li role="menuitem"><a href="#round">Spielwoche</a></li>
+                <li role="menuitem"><a href="#statistics">Statistik</a></li>
+                <li role="menuitem"><a href="#matches">Alle Spiele</a></li>
+                <li role="menuitem"><a href="#results">Tabelle</a></li>
+                <li role="menuitem"><a href="#admin">Admin</a></li>
+                <li style="display:none"><a href="#match">Spieleingabe</a></li>
+            </ul>
+        </div>
+    </div>
+    <hr/>
+</div>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div ng-view></div>
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="app.js"></script>
+<script src="appConfig.js"></script>
+<script src="round/roundCtrl.js"></script>
+<script src="match/matchCtrl.js"></script>
+<script src="statistics/statisticsCtrl.js"></script>
+<script src="matches/matchesCtrl.js"></script>
+<script src="results/resultsCtrl.js"></script>
+<script src="admin/adminCtrl.js"></script>
+<script src="services.js"></script>
+<script src="routes.js"></script>
+<script src="directives.js"></script>
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<div ng-controller='RoundCtrl'>
+
+    <div class="row">
+
+        <div class="large-12 columns">
+
+            <div class="filter-large">
+                <select name="selectRound" id="selectRound" ng-change="getRoundData()"
+                        ng-options="option.name for option in rounds.slice().reverse() track by option.id"
+                        ng-model="selectedRound">
+                </select>
+            </div>
+
+            <h3></h3>
+
+            <div ng-if="!active && selectedRound">
+                <div class="callout warning">
+                    <p>Diese Spielwoche ist abgeschlossen. Es können keine neuen Spiele mehr
+                        eingegeben werden.</p>
+                </div>
+            </div>
+
+            <h4>Aufstellung (Spielstärken für laufende Woche)</h4>
+            <div class="callout">
+                <p>Die Pyramide legt die die für die aktuelle Spielwoche geltenden Spielstärken fest. Die Spielstärke
+                    bestimmt, wieviele Punkte pro Spiel gewonnen oder verloren werden können.
+                Die Zahl bei jedem Spieler entspricht dem Punktestand zu Beginn der Spielwoche.
+                    In Klammern stehen die Punkte, die in der laufenden Woche gewonnen oder verloren
+                    wurden.</p>
+            </div>
+            <table class="colored-8">
+                <tr ng-repeat="row in lineUp">
+                    <td><b>Level {{row.level}}</b></td>
+                    <td align="center" ng-repeat="col in row.players">
+                        {{col.player}}<br> {{col.player && col.score}} {{col.player && ( "(" + (col.diff > 0 ?
+                        '+'+col.diff : col.diff) + ')')}}
+                    </td>
+                </tr>
+            </table>
+
+            <h4>Spiele</h4>
+            <button type="button"  ng-click="addMatch()" class="button" ng-disabled="!active">Zur Spieleingabe...</button>
+            <div class="callout">
+                <p>Die bei jedem Spieler in Klammen stehende Zahl gibt an, wieviele Punkte in diesem Spiel gewonnen
+                    oder verloren wurden.</p>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Team 1</th>
+                    <th></th>
+                    <th>Team 2</th>
+                    <th></th>
+                    <th>Ergebnis</th>
+                    <th>Satz 1</th>
+                    <th>Satz 2</th>
+                    <th>Satz 3</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="item in matches">
+                    <td>{{item.date.substr(0,10)}}</td>
+                    <td>{{item.team1[0]}} ({{(item.score[0] > 0 ? "+" : "") + item.score[0]}})</td>
+                    <td>{{item.team1[1]}} ({{(item.score[1] > 0 ? "+" : "") + item.score[1]}})</td>
+                    <td>{{item.team2[0]}} ({{(item.score[2] > 0 ? "+" : "") + item.score[2]}})</td>
+                    <td>{{item.team2[1]}} ({{(item.score[3] > 0 ? "+" : "") + item.score[3]}})</td>
+                    <td>{{item.sets[0]}}:{{item.sets[1]}}</td>
+                    <td>{{item.result[0]}}:{{item.result[1]}}</td>
+                    <td>{{item.result[2]}}:{{item.result[3]}}</td>
+                    <td>{{item.result[4]}}:{{item.result[5]}}</td>
+                </tr>
+            </table>
+
+            <h4>Zwischenstand</h4>
+            <div class="callout">
+                <p>Die Zahl in der Spalte "Differenz" zeigt, um wieviele Plätze sich ein Spieler in der laufenden
+                    Spielwoche verbessert bzw. verschlechtert hat.</p>
+            </div>
+            <table class="f">
+                <thead>
+                <tr>
+                    <th class="l">Pos.</th>
+                    <th class="l">Name</th>
+                    <th class="r">Differenz</th>
+                    <th class="r">Punkte</th>
+                    <th class="r">Spiele</th>
+                    <th class="r">Gew.</th>
+                    <th class="r">Verl.</th>
+                    <th class="r">Tore+/-</th>
+                    <th class="r">Tore+</th>
+                    <th class="r">Tore-</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="item in standings">
+                    <td class="l">{{$index + 1}}</td>
+                    <td class="l">{{ item.player }}</td>
+                    <td class="r" style='{{item.diff > 0 ? "color:green" : "color:red;"}}'>{{item.diff > 0 ? "+"+item.diff : item.diff < 0 ? item.diff : ""}}</td>
+                    <!--td ng-if="item.diff > 0" class="l"><span class="success badge">+{{item.diff}}</span> {{ item.player }}</td>
+                    <td ng-if="item.diff < 0" class="l"><span class="alert badge">{{item.diff}}</span> {{ item.player }}</td>
+                    <td ng-if="item.diff == 0" class="l"><span class="secondary badge">{{item.diff}}</span> {{ item.player }}</td-->
+                    <td class="r">{{ item.score | number:2 }}</td>
+                    <td class="r">{{ item.total }}</td>
+                    <td class="r">{{ item.wins }}</td>
+                    <td class="r">{{ item.losses }}</td>
+                    <td class="r">{{ item.goalsScored - item.goalsShipped }}</td>
+                    <td class="r">{{ item.goalsScored }}</td>
+                    <td class="r">{{ item.goalsShipped }}</td>
+                </tr>
+            </table>
+
+
+        </div>
+    </div>
+</div>

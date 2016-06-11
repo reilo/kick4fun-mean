@@ -1,0 +1,33 @@
+<div ng-controller='ResultsCtrl'>
+    <div class="row">
+        <div class="large-12 columns">
+            <h4>Aktueller Tabellenstand</h4>
+            <table class="f">
+                <thead>
+                <tr>
+                    <th class="l">Pos.</th>
+                    <th class="l">Name</th>
+                    <th class="r">Punkte</th>
+                    <th class="r">Spiele</th>
+                    <th class="r">Gew.</th>
+                    <th class="r">Verl.</th>
+                    <th class="r">Tore+/-</th>
+                    <th class="r">Tore+</th>
+                    <th class="r">Tore-</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="item in results">
+                    <td class="l">{{$index + 1}}</td>
+                    <td class="l">{{ item.player }}</td>
+                    <td class="r">{{ item.score | number:2 }}</td>
+                    <td class="r">{{ item.total }}</td>
+                    <td class="r">{{ item.wins }}</td>
+                    <td class="r">{{ item.losses }}</td>
+                    <td class="r">{{ item.goalsScored - item.goalsShipped }}</td>
+                    <td class="r">{{ item.goalsScored }}</td>
+                    <td class="r">{{ item.goalsShipped }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<div ng-controller='MatchCtrl'>
+    <form name="addMatchForm">
+        <div class="row">
+            <div class="small-12 columns">
+
+                <div class="row">
+                    <h2>Spieleingabe</h2>
+                </div>
+
+                <div class="row no-color">
+
+                    <fieldset class="small-4 columns">
+                        <legend><h4>Datum</h4></legend>
+                        <input type="date" ng-model="date" required>
+                    </fieldset>
+
+                </div>
+
+                <br/>
+
+                <div class="row colored-8">
+
+                    <fieldset class="small-6 columns">
+                        <legend><h4>Team 1</h4></legend>
+                        <select ng-repeat="idx in [0,1]" ng-model="team1[idx]" required>
+                            <option ng-repeat="item in participants" value="{{item}}">{{item}}</option>
+                        </select>
+                    </fieldset>
+
+                    <fieldset class="small-6 columns">
+                        <legend><h4>Team 2</h4></legend>
+                        <select ng-repeat="idx in [0,1]" ng-model="team2[idx]" required>
+                            <option ng-repeat="item in participants" value="{{item}}">{{item}}</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <br/>
+
+                <div class="row colored-8">
+                    <fieldset class="small-4 columns">
+                        <legend><h4>1. Satz</h4></legend>
+                        <select ng-repeat="idx in [0,1]" ng-model="sets[idx]" required>
+                            <option ng-repeat="item in goals" value="{{item}}">{{item}}</option>
+                        </select>
+                    </fieldset>
+
+                    <fieldset class="small-4 columns">
+                        <legend><h4>2. Satz</h4></legend>
+                        <select ng-repeat="idx in [2,3]" ng-model="sets[idx]" required>
+                            <option ng-repeat="item in goals" value="{{item}}">{{item}}</option>
+                        </select>
+                    </fieldset>
+
+                    <fieldset class="small-4 columns">
+                        <legend><h4>3. Satz</h4></legend>
+                        <select ng-repeat="idx in [4,5]" ng-model="sets[idx]" required>
+                            <option ng-repeat="item in goals" value="{{item}}">{{item}}</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <button type="button" class="button" ng-click="cancel()">Abbrechen</button>
+                    <button type="submit" class="button success" ng-click="save()" ng-disabled="addMatchForm.$invalid"
+                            ng-confirm-click="Soll dieses Spiel wirklich gespeichert werden? Sind alle Angaben korrekt?">
+                        Speichern
+                    </button>
+                </div>
+
+                <div class="callout alert" data-ng-messages="serverErrors" data-ng-show="addMatchForm.$submitted"
+                     data-ng-cloak>
+                    <p data-ng-message="internal">{{serverErrors.internal}}</p>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

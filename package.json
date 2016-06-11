@@ -2,24 +2,37 @@
   "name": "kick4fun",
   "version": "0.9.0",
   "private": true,
+  "repository": "https://github.com/reilo/kick4fun",
   "scripts": {
-    "prepare": "node ./app",
     "test": "mocha"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
+    "bower": "^1.3.1",
     "cookie-parser": "~1.3.5",
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "hbs": "~3.1.0",
+    "http-server": "^0.6.1",
+    "jasmine-core": "^2.3.4",
+    "karma": "~0.12",
+    "karma-chrome-launcher": "^0.1.12",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-jasmine": "^0.3.5",
+    "karma-junit-reporter": "^0.2.2",
     "morgan": "~1.6.1",
+    "protractor": "^2.1.0",
     "serve-favicon": "~2.3.0",
     "underscore": "~1.8.3",
     "underscore.string": "~2.3.0",
     "mongodb": "~2.1.8",
     "mongoose": "~4.4.8",
     "mocha": "~2.4.0",
+    "shelljs": "^0.2.6",
     "supertest": "~1.2.0",
     "should": "~8.3.0"
+  },
+  "scripts": {
+    "postinstall": "bower install"
   }
 }

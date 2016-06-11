@@ -3,43 +3,41 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 const fs = require('fs');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var appConfig = require('../appConfig');
-var utils = require('./utils');
+var appConfig = require('./api/appConfig');
 var debug = require('debug')('kick4fun:server');
 
 // init express app
 var app = express();
-var port = utils.normalizePort(appConfig.REST_PORT);
+var port = appConfig.REST_PORT;
 app.set('port', port);
 
 // app dependencies
-//app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-//app.use(express.static(appConfig.CLIENT_APP_PATH));
 
-//app.get('/', function(request, result) {
-//    result.sendFile(appConfig.CLIENT_APP_PATH + appConfig.CLIENT_PAGE);
-//});
+// client route
+app.use(express.static("./client"));
+app.get('/', function(request, result) {
+    result.sendFile("./client/index.html");
+});
 
 // load mongoose models in correct order (inherited models)
-require('./models/counter');
-require('./models/tournament');
-require('./models/challenge');
-require('./models/level');
-require('./models/match');
-require('./models/standing');
-require('./models/stats');
-require('./models/participantStats');
+require('./api/models/counter');
+require('./api/models/tournament');
+require('./api/models/challenge');
+require('./api/models/level');
+require('./api/models/match');
+require('./api/models/standing');
+require('./api/models/stats');
+require('./api/models/participantstats');
 
 // express routes
-var routes = require('./routes');
+var routes = require('./api/routes');
 app.use('/api', routes);
 
 // connect to Mongo DB
@@ -56,9 +54,6 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-// view engine setup
-//app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'hbs');
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -77,15 +72,14 @@ function onError(error) {
     if (error.syscall !== 'listen') {
         throw error;
     }
-    var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
     // handle specific listen errors with friendly messages
     switch (error.code) {
         case 'EACCES':
-            console.error(bind + ' requires elevated privileges');
+            console.error('Port' + port + ' requires elevated privileges');
             process.exit(1);
             break;
         case 'EADDRINUSE':
-            console.error(bind + ' is already in use');
+            console.error('Port' + port + ' is already in use');
             process.exit(1);
             break;
         default:
@@ -94,9 +88,7 @@ function onError(error) {
 }
 
 function onListening() {
-    var addr = server.address();
-    var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+    debug('Listening on port' + server.address().port);
 }
 
 module.exports = app;

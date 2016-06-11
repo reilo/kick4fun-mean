@@ -1,0 +1,44 @@
+<div ng-controller='MatchesCtrl'>
+    <div class="row">
+        <div class="small-12 columns">
+            <h4>Alle Spiele</h4>
+            <div class="callout success">
+                <p>Um nach bestimmten Teilnehmern zu filtern, einen oder mehrere Namen unten auswählen.</p>
+            </div>
+        </div>
+        <div class="filter-medium">
+            <div ng-repeat="idx in [0,1,2,3]" class="small-3 columns">
+                <select ng-change="getMatches()" ng-model="filter[idx]">
+                    <option ng-repeat="item in participants" value="{{item}}">{{item}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="small-12 columns">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Datum</th>
+                    <th>Team 1</th>
+                    <th>Team 2</th>
+                    <th>Ergebnis</th>
+                    <th>Satz 1</th>
+                    <th>Satz 2</th>
+                    <th>Satz 3</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="item in matches">
+                    <td>{{item.number}}</td>
+                    <td>{{item.date.substr(0,10)}}</td>
+                    <td>{{item.team1[0]}} &amp; {{item.team1[1]}}</td>
+                    <td>{{item.team2[0]}} &amp; {{item.team2[1]}}</td>
+                    <td>{{item.sets[0]}}:{{item.sets[1]}}</td>
+                    <td>{{item.result[0]}}:{{item.result[1]}}</td>
+                    <td>{{item.result[2]}}:{{item.result[3]}}</td>
+                    <td>{{item.result[4]}}:{{item.result[5]}}</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>

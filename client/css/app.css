@@ -1,0 +1,123 @@
+/* app css stylesheet */
+
+.menu {
+    list-style: none;
+}
+
+.menu > li {
+    display: inline;
+}
+
+table.f {
+    table-layout: fixed;
+}
+
+th.r {
+    text-align: right;
+}
+
+th.l {
+    text-align: left;
+}
+
+td.r {
+    text-align: right;
+}
+
+td.l {
+    text-align: left;
+}
+
+.callout.error {
+    color: #fff !important;
+    background-color: #ff0000; }
+
+.filter-large select {
+    font-size: 28px;
+    height: 60px;
+}
+
+.filter-medium select {
+    font-size: 20px;
+    height: 40px;
+}
+
+div.no-color fieldset {
+    border: solid 1px #080808;
+}
+
+div.colored-8 fieldset:nth-child(1) {
+    border: solid 1px #080808;
+    background-color:#fffeee;
+}
+
+div.colored-8 fieldset:nth-child(2) {
+    border: solid 1px #080808;
+    background-color:#efffee
+}
+
+div.colored-8 fieldset:nth-child(3) {
+    border: solid 1px #080808;
+    background-color:#eefffe
+}
+
+div.colored-8 fieldset:nth-child(4) {
+    border: solid 1px #080808;
+    background-color:#eeefff
+}
+
+div.colored-8 fieldset:nth-child(5) {
+    border: solid 1px #080808;
+    background-color:#feeeff
+}
+
+div.colored-8 fieldset:nth-child(6) {
+    border: solid 1px #080808;
+    background-color:#ffeeef
+}
+
+div.colored-8 fieldset:nth-child(7) {
+    border: solid 1px #080808;
+    background-color:#fffeee
+}
+
+div.colored-8 fieldset:nth-child(8) {
+    border: solid 1px #080808;
+    background-color:#efffee
+}
+
+table.colored-8 tbody tr:nth-child(1) {
+    background-color: #fffeee;
+}
+
+table.colored-8 tbody tr:nth-child(2) {
+    background-color: #efffee;
+}
+
+table.colored-8 tbody tr:nth-child(3) {
+    background-color: #eefffe;
+}
+
+table.colored-8 tbody tr:nth-child(4) {
+    background-color: #eeefff;
+}
+
+table.colored-8 tbody tr:nth-child(5) {
+    background-color: #feeeff;
+}
+
+table.colored-8 tbody tr:nth-child(6) {
+    background-color: #ffeeef;
+}
+
+table.colored-8 tbody tr:nth-child(7) {
+    background-color: #fffeee;
+}
+
+table.colored-8 tbody tr:nth-child(8) {
+    background-color: #efffee;
+}
+
+table.colored-2 tbody tr:nth-child(even) {
+    background-color: #eefffe;
+}
