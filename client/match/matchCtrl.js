@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.matchCtrl', ['ngRoute'])
+angular.module('kick4fun.matchCtrl', ['ngRoute'])
 
     .controller('MatchCtrl', ['$scope', '$location', 'ParticipantsFactory', 'MatchesFactory',
         function ($scope, $location, ParticipantsFactory, MatchesFactory) {

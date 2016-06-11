@@ -1,7 +1,7 @@
 'use strict';
 
-describe('myApp.version module', function() {
-  beforeEach(module('myApp.version'));
+describe('kick4fun.version module', function() {
+  beforeEach(module('kick4fun.version'));
 
   describe('interpolate filter', function() {
     beforeEach(module(function($provide) {

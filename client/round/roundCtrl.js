@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.roundCtrl', ['ngRoute'])
+angular.module('kick4fun.roundCtrl', ['ngRoute'])
 
     .controller('RoundCtrl', ['$scope', '$location', 'ChallengeFactory', 'RoundsFactory', 'MatchesFactory',
         function ($scope, $location, ChallengeFactory, RoundsFactory, MatchesFactory) {

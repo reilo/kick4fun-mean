@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.resultsCtrl', ['ngRoute'])
+angular.module('kick4fun.resultsCtrl', ['ngRoute'])
 
     .controller('ResultsCtrl', ['$scope', 'ChallengeFactory',
         function ($scope, ChallengeFactory) {

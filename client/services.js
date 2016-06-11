@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.services', ['ngResource'])
+angular.module('kick4fun.services', ['ngResource'])
 
     .factory('ParticipantsFactory', ['$http', '$location', 'appConfig', function ($http, $location, appConfig) {
 

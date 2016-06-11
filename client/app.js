@@ -1,19 +1,19 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', [
+angular.module('kick4fun', [
         'ngRoute',
-        'myApp.config',
-        'myApp.services',
-        'myApp.routes',
-        'myApp.directives',
-        'myApp.roundCtrl',
-        'myApp.statisticsCtrl',
-        'myApp.matchesCtrl',
-        'myApp.resultsCtrl',
-        'myApp.matchCtrl',
-        'myApp.adminCtrl',
-        'myApp.version'
+        'kick4fun.config',
+        'kick4fun.services',
+        'kick4fun.routes',
+        'kick4fun.directives',
+        'kick4fun.roundCtrl',
+        'kick4fun.statisticsCtrl',
+        'kick4fun.matchesCtrl',
+        'kick4fun.resultsCtrl',
+        'kick4fun.matchCtrl',
+        'kick4fun.adminCtrl',
+        'kick4fun.version'
     ])
 
     .config(['$httpProvider', function ($httpProvider) {

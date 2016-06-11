@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.config', [])
+angular.module('kick4fun.config', [])
 
     .constant('appConfig', {
 

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.directives', [])
+angular.module('kick4fun.directives', [])
 
     .directive('ngConfirmClick', [
         function () {

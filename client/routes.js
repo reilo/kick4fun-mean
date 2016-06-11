@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.routes', ['ngRoute'])
+angular.module('kick4fun.routes', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider

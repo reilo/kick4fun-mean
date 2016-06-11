@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.adminCtrl', ['ngRoute'])
+angular.module('kick4fun.adminCtrl', ['ngRoute'])
 
     .controller('AdminCtrl', ['$scope', '$location', '$window', 'ChallengeFactory', 'ParticipantsFactory',
         function ($scope, $location, $window, ChallengeFactory, ParticipantsFactory) {
