@@ -1,6 +1,8 @@
 module.exports = {
 
-    REST_PORT: '3000',
+    APP_PATH: '/',
+    
+    PORT: '3000',
 
     MONGO_URL: 'localhost:27017'
 

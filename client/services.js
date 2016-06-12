@@ -5,10 +5,11 @@ angular.module('kick4fun.services', ['ngResource'])
     .factory('ParticipantsFactory', ['$http', '$location', 'appConfig', function ($http, $location, appConfig) {
 
         var host = $location.$$host;
-        var port = appConfig.REST_PORT;
+        var port = appConfig.REST_PORT || 3000;
+        var path = appConfig.APP_PATH || '/';
         var tid = appConfig.TOURNAMENT_ID;
 
-        const TOURNAMENT_URL = 'http://' + host + ':' + port + '/api/v1/tournaments/' + tid + '/';
+        const TOURNAMENT_URL = 'http://' + host + ':' + port + path + 'api/v1/tournaments/' + tid + '/';
 
         var ParticipantsFactory = {};
 
@@ -30,9 +31,10 @@ angular.module('kick4fun.services', ['ngResource'])
 
             var host = $location.$$host;
             var port = appConfig.REST_PORT;
+            var path = appConfig.APP_PATH;
             var tid = appConfig.TOURNAMENT_ID;
 
-            const CHALLENGE_URL = 'http://' + host + ':' + port + '/api/v1/challenges/' + tid + '/';
+            const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/' + tid + '/';
 
             var ChallengeFactory = {};
 
@@ -56,9 +58,10 @@ angular.module('kick4fun.services', ['ngResource'])
 
         var host = $location.$$host;
         var port = appConfig.REST_PORT;
+        var path = appConfig.APP_PATH;
         var tid = appConfig.TOURNAMENT_ID;
 
-        const CHALLENGE_URL = 'http://' + host + ':' + port + '/api/v1/challenges/' + tid + '/';
+        const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/' + tid + '/';
 
         var RoundsFactory = {};
 
@@ -73,9 +76,10 @@ angular.module('kick4fun.services', ['ngResource'])
 
         var host = $location.$$host;
         var port = appConfig.REST_PORT;
+        var path = appConfig.APP_PATH;
         var tid = appConfig.TOURNAMENT_ID;
 
-        const CHALLENGE_URL = 'http://' + host + ':' + port + '/api/v1/challenges/' + tid + '/';
+        const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/' + tid + '/';
 
         var MatchesFactory = {};
 
@@ -104,9 +108,10 @@ angular.module('kick4fun.services', ['ngResource'])
 
         var host = $location.$$host;
         var port = appConfig.REST_PORT;
+        var path = appConfig.APP_PATH;
         var tid = appConfig.TOURNAMENT_ID;
 
-        const CHALLENGE_URL = 'http://' + host + ':' + port + '/api/v1/challenges/' + tid + '/';
+        const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/' + tid + '/';
 
         var StatsFactory = {};
 

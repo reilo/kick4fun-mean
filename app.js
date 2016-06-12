@@ -9,9 +9,13 @@ var bodyParser = require('body-parser');
 var appConfig = require('./api/appConfig');
 var debug = require('debug')('kick4fun:server');
 
+// configuration
+var port = appConfig.PORT || 3000;
+var appPath = appConfig.APP_PATH || '/';
+var mongoUrl = appConfig.MONGO_URL || 'localhost:27017';
+
 // init express app
 var app = express();
-var port = appConfig.REST_PORT;
 app.set('port', port);
 
 // app dependencies
@@ -22,8 +26,8 @@ app.use(cookieParser());
 
 // client route
 app.use(express.static("./client"));
-app.get('/', function(request, result) {
-    result.sendFile("./client/index.html");
+app.get(appPath, function(request, result) {
+    result.sendFile("./client/index.html", { root: __dirname });
 });
 
 // load mongoose models in correct order (inherited models)
@@ -38,14 +42,14 @@ require('./api/models/participantstats');
 
 // express routes
 var routes = require('./api/routes');
-app.use('/api', routes);
+app.use(appPath + 'api', routes);
 
 // connect to Mongo DB
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://' + appConfig.MONGO_URL);
+mongoose.connect('mongodb://' + mongoUrl);
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', function () {
-    console.log('Connected to MongoDB at ' + appConfig.MONGO_URL);
+    console.log('Connected to MongoDB at ' + mongoUrl);
 });
 
 // init HTTP server
