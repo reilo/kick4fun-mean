@@ -7,19 +7,18 @@ angular.module('kick4fun.services', ['ngResource'])
         var host = $location.$$host;
         var port = appConfig.REST_PORT || 3000;
         var path = appConfig.APP_PATH || '/';
-        var tid = appConfig.TOURNAMENT_ID;
 
-        const TOURNAMENT_URL = 'http://' + host + ':' + port + path + 'api/v1/tournaments/' + tid + '/';
+        const TOURNAMENT_URL = 'http://' + host + ':' + port + path + 'api/v1/tournaments/';
 
         var ParticipantsFactory = {};
 
-        ParticipantsFactory.all = function () {
-            return $http.get(TOURNAMENT_URL + 'participants');
+        ParticipantsFactory.all = function (tid) {
+            return $http.get(TOURNAMENT_URL + tid + '/participants');
         };
 
-        ParticipantsFactory.add = function (name) {
+        ParticipantsFactory.add = function (tid, name) {
             var participant = {name: name};
-            return $http.post(TOURNAMENT_URL + 'participants',
+            return $http.post(TOURNAMENT_URL + tid + '/participants',
                 JSON.stringify(participant));
         };
 
@@ -32,22 +31,21 @@ angular.module('kick4fun.services', ['ngResource'])
             var host = $location.$$host;
             var port = appConfig.REST_PORT;
             var path = appConfig.APP_PATH;
-            var tid = appConfig.TOURNAMENT_ID;
 
-            const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/' + tid + '/';
+            const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/';
 
             var ChallengeFactory = {};
 
-            ChallengeFactory.all = function () {
-                return $http.get(CHALLENGE_URL);
+            ChallengeFactory.all = function (tid) {
+                return $http.get(CHALLENGE_URL  + tid);
             };
 
-            ChallengeFactory.stop = function () {
-                return $http.put(CHALLENGE_URL + 'stop', {});
+            ChallengeFactory.stop = function (tid) {
+                return $http.put(CHALLENGE_URL + tid + '/stop', {});
             };
 
-            ChallengeFactory.start = function () {
-                return $http.put(CHALLENGE_URL + 'start', {});
+            ChallengeFactory.start = function (tid) {
+                return $http.put(CHALLENGE_URL + tid + '/start', {});
             };
 
             return ChallengeFactory;
@@ -59,14 +57,13 @@ angular.module('kick4fun.services', ['ngResource'])
         var host = $location.$$host;
         var port = appConfig.REST_PORT;
         var path = appConfig.APP_PATH;
-        var tid = appConfig.TOURNAMENT_ID;
 
-        const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/' + tid + '/';
+        const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/';
 
         var RoundsFactory = {};
 
-        RoundsFactory.one = function (number) {
-            return $http.get(CHALLENGE_URL + 'rounds/' + number);
+        RoundsFactory.one = function (tid, number) {
+            return $http.get(CHALLENGE_URL + tid + '/rounds/' + number);
         };
 
         return RoundsFactory;
@@ -77,13 +74,12 @@ angular.module('kick4fun.services', ['ngResource'])
         var host = $location.$$host;
         var port = appConfig.REST_PORT;
         var path = appConfig.APP_PATH;
-        var tid = appConfig.TOURNAMENT_ID;
 
-        const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/' + tid + '/';
+        const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/';
 
         var MatchesFactory = {};
 
-        MatchesFactory.all = function (players, rounds) {
+        MatchesFactory.all = function (tid, players, rounds) {
             var filter = '?';
             if (players !== undefined && players.length > 0) {
                 filter += ('players=' + players.join());
@@ -94,11 +90,11 @@ angular.module('kick4fun.services', ['ngResource'])
                 }
                 filter += ('rounds=' + rounds.join());
             }
-            return $http.get(CHALLENGE_URL + 'matches' + filter);
+            return $http.get(CHALLENGE_URL + tid + '/matches' + filter);
         };
 
-        MatchesFactory.add = function (match) {
-            return $http.post(CHALLENGE_URL + 'matches', match);
+        MatchesFactory.add = function (tid, match) {
+            return $http.post(CHALLENGE_URL + tid + '/matches', match);
         };
 
         return MatchesFactory;
@@ -109,18 +105,17 @@ angular.module('kick4fun.services', ['ngResource'])
         var host = $location.$$host;
         var port = appConfig.REST_PORT;
         var path = appConfig.APP_PATH;
-        var tid = appConfig.TOURNAMENT_ID;
 
-        const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/' + tid + '/';
+        const CHALLENGE_URL = 'http://' + host + ':' + port + path + 'api/v1/challenges/';
 
         var StatsFactory = {};
 
-        StatsFactory.challenge = function () {
-            return $http.get(CHALLENGE_URL + 'stats/');
+        StatsFactory.challenge = function (tid) {
+            return $http.get(CHALLENGE_URL + tid + '/stats');
         };
 
-        StatsFactory.participant = function (name) {
-            return $http.get(CHALLENGE_URL + 'participants/' + name + '/stats');
+        StatsFactory.participant = function (tid, name) {
+            return $http.get(CHALLENGE_URL + tid + '/participants/' + name + '/stats');
         };
 
         return StatsFactory;

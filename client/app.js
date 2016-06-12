@@ -7,6 +7,7 @@ angular.module('kick4fun', [
         'kick4fun.services',
         'kick4fun.routes',
         'kick4fun.directives',
+        'kick4fun.helpers',
         'kick4fun.roundCtrl',
         'kick4fun.statisticsCtrl',
         'kick4fun.matchesCtrl',

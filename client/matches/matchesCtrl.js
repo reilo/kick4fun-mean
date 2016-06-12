@@ -2,8 +2,10 @@
 
 angular.module('kick4fun.matchesCtrl', ['ngRoute'])
 
-    .controller('MatchesCtrl', ['$scope', 'MatchesFactory', 'ParticipantsFactory',
-        function ($scope, MatchesFactory, ParticipantsFactory) {
+    .controller('MatchesCtrl', ['$scope', '$location', 'appConfig', 'Uri', 'MatchesFactory', 'ParticipantsFactory',
+        function ($scope, $location, appConfig, Uri, MatchesFactory, ParticipantsFactory) {
+
+            var tid = Uri.parse($location.$$absUrl).queryKey.id || appConfig.TOURNAMENT_ID;
 
             $scope.filter = ['', '', '', ''];
 
@@ -14,14 +16,14 @@ angular.module('kick4fun.matchesCtrl', ['ngRoute'])
                         filter.push($scope.filter[i]);
                     }
                 }
-                MatchesFactory.all(filter).then(function (result) {
+                MatchesFactory.all(tid, filter).then(function (result) {
                     $scope.matches = result.data;
                 });
             };
 
             $scope.getMatches();
 
-            ParticipantsFactory.all().then(function (result) {
+            ParticipantsFactory.all(tid).then(function (result) {
                 $scope.participants = result.data.sort();
             });
 

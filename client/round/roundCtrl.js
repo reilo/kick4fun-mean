@@ -2,10 +2,12 @@
 
 angular.module('kick4fun.roundCtrl', ['ngRoute'])
 
-    .controller('RoundCtrl', ['$scope', '$location', 'ChallengeFactory', 'RoundsFactory', 'MatchesFactory',
-        function ($scope, $location, ChallengeFactory, RoundsFactory, MatchesFactory) {
+    .controller('RoundCtrl', ['$scope', '$location', 'appConfig', 'Uri', 'ChallengeFactory', 'RoundsFactory', 'MatchesFactory',
+        function ($scope, $location, appConfig, Uri, ChallengeFactory, RoundsFactory, MatchesFactory) {
 
-            ChallengeFactory.all().then(function (result) {
+            var tid = Uri.parse($location.$$absUrl).queryKey.id || appConfig.TOURNAMENT_ID;
+            
+            ChallengeFactory.all(tid).then(function (result) {
                 var challenge = result.data;
                 $scope.rounds = [];
                 for (var i = 0; i < challenge.rounds.length; i++) {
@@ -25,7 +27,7 @@ angular.module('kick4fun.roundCtrl', ['ngRoute'])
 
                 if ($scope.selectedRound) {
                     
-                    RoundsFactory.one($scope.selectedRound.id).then(function (result) {
+                    RoundsFactory.one(tid, $scope.selectedRound.id).then(function (result) {
                         var round = result.data;
                         var i;
 
@@ -66,7 +68,7 @@ angular.module('kick4fun.roundCtrl', ['ngRoute'])
                             $scope.lineUp.push(item);
                         }
 
-                        MatchesFactory.all('', [$scope.selectedRound.id]).then(function (result) {
+                        MatchesFactory.all(tid, '', [$scope.selectedRound.id]).then(function (result) {
                             $scope.matches = result.data;
                         });
                         

@@ -2,27 +2,29 @@
 
 angular.module('kick4fun.adminCtrl', ['ngRoute'])
 
-    .controller('AdminCtrl', ['$scope', '$location', '$window', 'ChallengeFactory', 'ParticipantsFactory',
-        function ($scope, $location, $window, ChallengeFactory, ParticipantsFactory) {
+    .controller('AdminCtrl', ['$scope', '$location', '$window', 'appConfig', 'Uri', 'ChallengeFactory', 'ParticipantsFactory',
+        function ($scope, $location, $window, appConfig, Uri, ChallengeFactory, ParticipantsFactory) {
 
+            var tid = Uri.parse($location.$$absUrl).queryKey.id || appConfig.TOURNAMENT_ID;
+            
             $scope.serverErrors = {};
 
-            ChallengeFactory.all().then(function (result) {
+            ChallengeFactory.all(tid).then(function (result) {
                 $scope.status = result.data.status;
             });
 
-            ParticipantsFactory.all().then(function (result) {
+            ParticipantsFactory.all(tid).then(function (result) {
                 $scope.participants = result.data;
             });
 
             $scope.closeRound = function () {
-                ChallengeFactory.stop().then(function (result) {
+                ChallengeFactory.stop(tid).then(function (result) {
                     $window.location.reload();
                 })
             };
 
             $scope.openRound = function () {
-                ChallengeFactory.start()
+                ChallengeFactory.start(tid)
                     .success(function (result) {
                         $location.path('/round');
                     })
@@ -31,7 +33,7 @@ angular.module('kick4fun.adminCtrl', ['ngRoute'])
             };
 
             $scope.addParticipant = function () {
-                ParticipantsFactory.add($scope.participantName)
+                ParticipantsFactory.add(tid, $scope.participantName)
                     .success(function (result) {
                         $window.location.reload();
                     })

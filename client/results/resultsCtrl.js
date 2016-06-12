@@ -2,10 +2,12 @@
 
 angular.module('kick4fun.resultsCtrl', ['ngRoute'])
 
-    .controller('ResultsCtrl', ['$scope', 'ChallengeFactory',
-        function ($scope, ChallengeFactory) {
+    .controller('ResultsCtrl', ['$scope', '$location', 'appConfig', 'Uri', 'ChallengeFactory',
+        function ($scope, $location, appConfig, Uri, ChallengeFactory) {
 
-            ChallengeFactory.all().then(function (result) {
+            var tid = Uri.parse($location.$$absUrl).queryKey.id || appConfig.TOURNAMENT_ID;
+            
+            ChallengeFactory.all(tid).then(function (result) {
                 $scope.results = result.data.overallStandings;
             });
 

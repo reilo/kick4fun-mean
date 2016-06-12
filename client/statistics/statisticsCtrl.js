@@ -2,14 +2,16 @@
 
 angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
 
-    .controller('StatisticsCtrl', ['$scope', 'ParticipantsFactory', 'StatsFactory',
-        function ($scope, ParticipantsFactory, StatsFactory) {
+    .controller('StatisticsCtrl', ['$scope', '$location', 'appConfig', 'Uri', 'ParticipantsFactory', 'StatsFactory',
+        function ($scope, $location, appConfig, Uri, ParticipantsFactory, StatsFactory) {
 
-            ParticipantsFactory.all().then(function (result) {
+            var tid = Uri.parse($location.$$absUrl).queryKey.id || appConfig.TOURNAMENT_ID;
+
+            ParticipantsFactory.all(tid).then(function (result) {
                 $scope.participants = result.data.sort();
             });
 
-            StatsFactory.challenge().then(function (result) {
+            StatsFactory.challenge(tid).then(function (result) {
                 $scope.stats = result.data;
                 if (!$scope.showRounds) {
                     $scope.showRounds = function () {
@@ -20,7 +22,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 {label: "Runden", value: $scope.stats.rounds}
                             ]
                         });
-                    }
+                    };
                     $scope.showRounds();
                 }
                 if (!$scope.showMatches) {
@@ -32,7 +34,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 {label: "Spiele", value: $scope.stats.matches}
                             ]
                         });
-                    }
+                    };
                     $scope.showMatches();
                 }
                 if (!$scope.showMatchesLowHigh) {
@@ -45,7 +47,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 {label: "2:1", value: $scope.stats.lowWins}
                             ]
                         });
-                    }
+                    };
                     $scope.showMatchesLowHigh();
                 }
                 if (!$scope.showGoals) {
@@ -57,7 +59,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 {label: "Tore", value: $scope.stats.goals}
                             ]
                         });
-                    }
+                    };
                     $scope.showGoals();
                 }
                 if (!$scope.showMatchesPerRound) {
@@ -77,11 +79,11 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                             labels: ['Anzahl Spiele'],
                             parseTime: false,
                             resize: true,
-                            hoverCallback: function (index, options, content, row) {
+                            hoverCallback: function (index, options, content) {
                                 return content.replace("</div>", ". Runde</div>");
                             }
                         });
-                    }
+                    };
                     $scope.showMatchesPerRound();
                 }
                 if (!$scope.showParticipantsPerRound) {
@@ -101,11 +103,11 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                             labels: ['Aktive Teilnehmer'],
                             parseTime: false,
                             resize: true,
-                            hoverCallback: function (index, options, content, row) {
+                            hoverCallback: function (index, options, content) {
                                 return content.replace("</div>", ". Runde</div>");
                             }
                         });
-                    }
+                    };
                     $scope.showParticipantsPerRound();
                 }
             });
@@ -114,7 +116,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
 
                 var participant = $scope.pfilter;
 
-                StatsFactory.participant(participant).then(function (result) {
+                StatsFactory.participant(tid, participant).then(function (result) {
                     $scope.pstats = result.data;
                     $scope.showPMatches = function () {
                         Morris.Donut({
@@ -124,7 +126,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 {label: "Spiele", value: $scope.pstats.matches}
                             ]
                         });
-                    }
+                    };
                     $scope.showPMatches();
                     $scope.showPWinLoss = function () {
                         Morris.Donut({
@@ -135,7 +137,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 {label: "Niederlagen", value: $scope.pstats.losses}
                             ]
                         });
-                    }
+                    };
                     $scope.showPWinLoss();
                     $scope.showPSets = function () {
                         Morris.Donut({
@@ -146,7 +148,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 {label: "Verlustsätze", value: $scope.pstats.lossSets}
                             ]
                         });
-                    }
+                    };
                     $scope.showPSets();
                     $scope.showPGoals = function () {
                         Morris.Donut({
@@ -157,7 +159,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 {label: "Tore kassiert", value: $scope.pstats.goalsShipped}
                             ]
                         });
-                    }
+                    };
                     $scope.showPGoals();
                     $scope.showPActivity = function () {
                         Morris.Donut({
@@ -167,7 +169,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 {label: "Spiele/Woche", value: $scope.pstats.activity}
                             ]
                         });
-                    }
+                    };
                     $scope.showPActivity();
                     $scope.showPStrength = function () {
                         var sum = _.reduce($scope.pstats.strengthPerRound, function(memo, num){ return memo + num; }, 0);
@@ -178,7 +180,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 {label: "Spielstärke", value: sum / $scope.stats.rounds}
                             ]
                         });
-                    }
+                    };
                     $scope.showPStrength();
                     $scope.showPPositionPerRound = function () {
                         var data = [];
@@ -200,7 +202,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 return row.round == 0 ? content.replace("0</div>", "Aufstellung</div>") : content.replace("</div>", ". Runde</div>");
                             }
                         });
-                    }
+                    };
                     $scope.showPPositionPerRound();
                     $scope.showPScorePerRound = function () {
                         var data = [];
@@ -226,7 +228,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                                 return row.round == 0 ? content.replace("0</div>", "Aufstellung</div>") : content.replace("</div>", ". Runde</div>");
                             }
                         });
-                    }
+                    };
                     $scope.showPScorePerRound();
                     $scope.showPPartners = function() {
                         var data = [];
@@ -246,7 +248,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                             labels: ['Spiele', 'Siege', 'Niederlagen'],
                             barColors: ['blue', 'green', 'red']
                         });
-                    }
+                    };
                     $scope.showPPartners();
                     $scope.showPOpponents = function() {
                         var data = [];
@@ -266,7 +268,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                             labels: ['Spiele', 'Siege', 'Niederlagen'],
                             barColors: ['blue', 'green', 'red']
                         });
-                    }
+                    };
                     $scope.showPOpponents();
                 });
 

@@ -2,8 +2,10 @@
 
 angular.module('kick4fun.matchCtrl', ['ngRoute'])
 
-    .controller('MatchCtrl', ['$scope', '$location', 'ParticipantsFactory', 'MatchesFactory',
-        function ($scope, $location, ParticipantsFactory, MatchesFactory) {
+    .controller('MatchCtrl', ['$scope', '$location', 'appConfig', 'Uri', 'ParticipantsFactory', 'MatchesFactory',
+        function ($scope, $location, appConfig, Uri, ParticipantsFactory, MatchesFactory) {
+
+            var tid = Uri.parse($location.$$absUrl).queryKey.id || appConfig.TOURNAMENT_ID;
 
             $scope.date = new Date();
 
@@ -15,7 +17,7 @@ angular.module('kick4fun.matchCtrl', ['ngRoute'])
 
             $scope.serverErrors = {};
 
-            ParticipantsFactory.all().then(function (result) {
+            ParticipantsFactory.all(tid).then(function (result) {
                 $scope.participants = result.data.sort();
             });
 
@@ -28,7 +30,7 @@ angular.module('kick4fun.matchCtrl', ['ngRoute'])
                 match.team1 = $scope.team1;
                 match.team2 = $scope.team2;
                 match.result = $scope.sets;
-                MatchesFactory.add(match)
+                MatchesFactory.add(tid, match)
                     .success(function (result) {
                         $location.path('/round');
                     })
