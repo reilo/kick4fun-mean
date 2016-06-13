@@ -162,22 +162,24 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
                     };
                     $scope.showPGoals();
                     $scope.showPActivity = function () {
+                        var roundedValue = Math.round(100 * $scope.pstats.activity) / 100;
                         Morris.Donut({
                             element: 'donut-pactivity',
                             resize: true,
                             data: [
-                                {label: "Spiele/Woche", value: $scope.pstats.activity}
+                                {label: "Spiele/Woche", value: roundedValue}
                             ]
                         });
                     };
                     $scope.showPActivity();
                     $scope.showPStrength = function () {
                         var sum = _.reduce($scope.pstats.strengthPerRound, function(memo, num){ return memo + num; }, 0);
+                        var roundedValue =  Math.round(100 * (sum / $scope.stats.rounds)) / 100;
                         Morris.Donut({
                             element: 'donut-pstrength',
                             resize: true,
                             data: [
-                                {label: "Spielstärke", value: sum / $scope.stats.rounds}
+                                {label: "Spielstärke", value: roundedValue}
                             ]
                         });
                     };
