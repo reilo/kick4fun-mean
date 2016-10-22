@@ -5,7 +5,7 @@ angular.module('kick4fun.matchesCtrl', ['ngRoute'])
     .controller('MatchesCtrl', ['$scope', '$location', 'appConfig', 'Uri', 'MatchesFactory', 'ParticipantsFactory',
         function ($scope, $location, appConfig, Uri, MatchesFactory, ParticipantsFactory) {
 
-            var tid = Uri.parse($location.$$absUrl).queryKey.id || appConfig.TOURNAMENT_ID;
+            var tid = Uri.parse($location.$$absUrl).queryKey.id;
 
             $scope.filter = ['', '', '', ''];
 

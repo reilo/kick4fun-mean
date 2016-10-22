@@ -6,9 +6,7 @@ angular.module('kick4fun.config', [])
 
             APP_PATH: '/',
 
-            REST_PORT: '3000',
-
-            TOURNAMENT_ID: '572f6ddacad8fcec08b4f99c'
+            REST_PORT: '3000'
         
         }
     );

@@ -5,7 +5,7 @@ angular.module('kick4fun.roundCtrl', ['ngRoute'])
     .controller('RoundCtrl', ['$scope', '$location', 'appConfig', 'Uri', 'ChallengeFactory', 'RoundsFactory', 'MatchesFactory',
         function ($scope, $location, appConfig, Uri, ChallengeFactory, RoundsFactory, MatchesFactory) {
 
-            var tid = Uri.parse($location.$$absUrl).queryKey.id || appConfig.TOURNAMENT_ID;
+            var tid = Uri.parse($location.$$absUrl).queryKey.id;
             
             ChallengeFactory.all(tid).then(function (result) {
                 var challenge = result.data;

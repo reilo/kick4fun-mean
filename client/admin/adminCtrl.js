@@ -5,7 +5,7 @@ angular.module('kick4fun.adminCtrl', ['ngRoute'])
     .controller('AdminCtrl', ['$scope', '$location', '$window', 'appConfig', 'Uri', 'ChallengeFactory', 'ParticipantsFactory',
         function ($scope, $location, $window, appConfig, Uri, ChallengeFactory, ParticipantsFactory) {
 
-            var tid = Uri.parse($location.$$absUrl).queryKey.id || appConfig.TOURNAMENT_ID;
+            var tid = Uri.parse($location.$$absUrl).queryKey.id;
             
             $scope.serverErrors = {};
 

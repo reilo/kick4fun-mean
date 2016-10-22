@@ -5,7 +5,7 @@ angular.module('kick4fun.statisticsCtrl', ['ngRoute'])
     .controller('StatisticsCtrl', ['$scope', '$location', 'appConfig', 'Uri', 'ParticipantsFactory', 'StatsFactory',
         function ($scope, $location, appConfig, Uri, ParticipantsFactory, StatsFactory) {
 
-            var tid = Uri.parse($location.$$absUrl).queryKey.id || appConfig.TOURNAMENT_ID;
+            var tid = Uri.parse($location.$$absUrl).queryKey.id;
 
             ParticipantsFactory.all(tid).then(function (result) {
                 $scope.participants = result.data.sort();
