@@ -13,7 +13,14 @@
 
             <h3></h3>
 
-            <div ng-if="!active && selectedRound">
+            <div ng-if="completed">
+                <div class="callout warning">
+                    <p>Dieses Turnier ist abgeschlossen. Es können keine neuen Spiele mehr
+                        eingegeben werden.</p>
+                </div>
+            </div>
+
+            <div ng-if="!active && !completed && selectedRound">
                 <div class="callout warning">
                     <p>Diese Spielwoche ist abgeschlossen. Es können keine neuen Spiele mehr
                         eingegeben werden.</p>

@@ -5,20 +5,24 @@ angular.module('kick4fun.roundCtrl', ['ngRoute'])
     .controller('RoundCtrl', ['$scope', '$location', 'appConfig', 'Uri', 'ChallengeFactory', 'RoundsFactory', 'MatchesFactory',
         function ($scope, $location, appConfig, Uri, ChallengeFactory, RoundsFactory, MatchesFactory) {
 
-            var tid = Uri.parse($location.$$absUrl).queryKey.id;
-            
+            var tid = Uri.parse($location.$$absUrl).queryKey.id || appConfig.TOURNAMENT_ID;
+            var isCompleted = false;
+
             ChallengeFactory.all(tid).then(function (result) {
                 var challenge = result.data;
+                var isActive = challenge.status == 'progress' || challenge.status == 'paused';
+                isCompleted = challenge.status == 'completed';
                 $scope.rounds = [];
                 for (var i = 0; i < challenge.rounds.length; i++) {
                     var round = challenge.rounds[i];
                     var startDate = round.startDate && round.startDate.substr(8, 2) + '.' + round.startDate.substr(5, 2) + '.';
                     var endDate = round.endDate && round.endDate.substr(8, 2) + '.' + round.endDate.substr(5, 2) + '.' || '...';
+                    var roundName = (round.number == challenge.rounds.length && isActive ? 'Aktuelle' : round.number + '.') + ' Spielwoche (' + startDate + ' - ' + endDate + ')';
                     $scope.rounds.push({
                         id: round.number,
-                        name: (round.number == challenge.rounds.length ? 'Aktuelle' : round.number + '.') + ' Spielwoche (' + startDate + ' - ' + endDate + ')'
+                        name: roundName
                     });
-                    $scope.selectedRound = {id: challenge.rounds.length, name: 'Aktuelle Spielwoche'};
+                    $scope.selectedRound = {id: challenge.rounds.length, name: roundName};
                 }
                 $scope.getRoundData();
             });
@@ -26,12 +30,13 @@ angular.module('kick4fun.roundCtrl', ['ngRoute'])
             $scope.getRoundData = function () {
 
                 if ($scope.selectedRound) {
-                    
+
                     RoundsFactory.one(tid, $scope.selectedRound.id).then(function (result) {
                         var round = result.data;
                         var i;
 
                         $scope.active = !round.endDate;
+                        $scope.completed = isCompleted;
 
                         $scope.lineUp = [];
                         var maxLevel = round.lineUp[0].strength;
@@ -71,7 +76,7 @@ angular.module('kick4fun.roundCtrl', ['ngRoute'])
                         MatchesFactory.all(tid, '', [$scope.selectedRound.id]).then(function (result) {
                             $scope.matches = result.data;
                         });
-                        
+
                         $scope.standings = round.standings;
                         for (i = 0; i < round.standings.length; i++) {
                             round.standings[i].diff = _.findIndex(round.lineUp, {player: round.standings[i].player}) - i;

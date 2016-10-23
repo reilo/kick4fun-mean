@@ -277,8 +277,6 @@ exports.finish = function (request, response, next) {
                 error = 'Challenge does not exist';
             } else if (challenge.status != 'paused') {
                 error = 'Tournament is not in paused status';
-            } else {
-                error = 'Finish not yet implemented';
             }
         }
         if (error) {
