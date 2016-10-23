@@ -1,0 +1,80 @@
+<div ng-controller='PStatisticsCtrl'>
+
+    <div class="row">
+
+        <div class="small-3 columns">
+            <h4>Spieler auswählen:</h4>
+            <div class="filter-medium">
+                <select ng-change="getPStats()" ng-model="pfilter" ng-disabled="pfilter">
+                    <option ng-repeat="item in participants" value="{{item}}">{{item}}</option>
+                </select>
+                <button type="button" ng-click="resetPStats()" class="button" ng-disabled="!pfilter">Reset</button>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div ng-if="pfilter">
+
+        <div class="row">
+
+            <div class="small-3 columns">
+                <h5>Absolvierte Spiele</h5>
+                <div id="donut-pmatches" style="height: 250px;"></div>
+            </div>
+
+            <div class="small-3 columns">
+                <h5>Gewonnene/Verlorene Spiele</h5>
+                <div id="donut-pwinloss" style="height: 250px;"></div>
+            </div>
+
+            <div class="small-3 columns">
+                <h5>Gewonnene/Verlorene Sätze</h5>
+                <div id="donut-psets" style="height: 250px;"></div>
+            </div>
+
+            <div class="small-3 columns">
+                <h5>Geschossene/Kassierte Tore</h5>
+                <div id="donut-pgoals" style="height: 250px;"></div>
+            </div>
+
+            <div class="small-3 columns">
+                <h5>Aktivität</h5>
+                <div id="donut-pactivity" style="height: 250px;"></div>
+            </div>
+
+            <div class="small-3 columns">
+                <h5>Durchschnittliche Spielstärke</h5>
+                <div id="donut-pstrength" style="height: 250px;"></div>
+            </div>
+
+            <hr/>
+
+            <div class="small-6 columns">
+                <h5>Platzierung pro Spielwoche</h5>
+                <div id="line-pposition" style="height: 250px;"></div>
+            </div>
+
+            <div class="small-6 columns">
+                <h5>Punktzahl pro Spielwoche</h5>
+                <div id="line-pscore" style="height: 250px;"></div>
+            </div>
+
+            <hr/>
+
+            <div class="small-12 columns">
+                <h5>Spieler als Partner</h5>
+                <div id="bar-ppartners" style="height: 250px;"></div>
+            </div>
+
+            <div class="small-12 columns">
+                <h5>Spieler als Gegner</h5>
+                <div id="bar-popponents" style="height: 250px;"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
