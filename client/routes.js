@@ -16,6 +16,10 @@ angular.module('kick4fun.routes', ['ngRoute'])
                 templateUrl: 'statistics/statisticsView.html',
                 controller: 'StatisticsCtrl'
             })
+            .when('/pstatistics', {
+                templateUrl: 'statistics/pstatisticsView.html',
+                controller: 'PStatisticsCtrl'
+            })
             .when('/matches', {
                 templateUrl: 'matches/matchesView.html',
                 controller: 'MatchesCtrl'

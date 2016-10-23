@@ -10,6 +10,7 @@ angular.module('kick4fun', [
         'kick4fun.helpers',
         'kick4fun.roundCtrl',
         'kick4fun.statisticsCtrl',
+        'kick4fun.pstatisticsCtrl',
         'kick4fun.matchesCtrl',
         'kick4fun.resultsCtrl',
         'kick4fun.matchCtrl',
