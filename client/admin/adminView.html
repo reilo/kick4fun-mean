@@ -3,18 +3,17 @@
         <div class="large-12 columns">
             <h3>Admin-Funktionen</h3>
         </div>
-        <div class="large-6 columns">
-            <div class="callout warning">
-                <button type="button" class="warning button" ng-click="closeRound()"
-                        ng-confirm-click="Die laufende Spielwoche wirklich beenden? Das kann nicht rückgängig gemacht werden!"
-                        ng-disabled="status != 'progress'">Aktuelle Runde
-                    beenden
+        <div class="large-4 columns">
+            <div class="callout info">
+                <button type="button" class="info button" ng-click="startChallenge()"
+                        ng-confirm-click="Die Challenge wirklich starten?"
+                        ng-disabled="status != 'build' || participants.length < 4">Challenge
+                    starten
                 </button>
-                <p>Die aktuelle Spielwoche wird abgeschlossen und das Turnier pausiert. Im pausierten
-                    Zustand können neue Teilnehmer hinzugefügt werden.</p>
+                <p>Die Startaufstellung wird anhand des aktuellen Rankings generiert. Danach können noch Neueinsteiger hinzugefügt werden.</p>
             </div>
         </div>
-        <div class="large-6 columns">
+        <div class="large-4 columns">
             <div class="callout success">
                 <button type="button" class="success button" ng-click="openRound()"
                         ng-confirm-click="Wirklich eine neue Spielwoche starten? Das kann nicht rückgängig gemacht werden!"
@@ -22,6 +21,17 @@
                 </button>
                 <p>Die neue Spielwoche wird gestartet und das Turnier fortgesetzt. Anschließend können wieder
                     neue Spiele eingegeben werden.</p>
+            </div>
+        </div>
+        <div class="large-4 columns">
+            <div class="callout warning">
+                <button type="button" class="warning button" ng-click="closeRound()"
+                        ng-confirm-click="Die laufende Spielwoche wirklich beenden? Das kann nicht rückgängig gemacht werden!"
+                        ng-disabled="status != 'progress'">Aktuelle Runde
+                    beenden
+                </button>
+                <p>Die aktuelle Spielwoche wird abgeschlossen und das Turnier pausiert. Jetzt
+                    können neue Teilnehmer hinzugefügt werden.</p>
             </div>
         </div>
         <div class="large-12 columns">
@@ -32,10 +42,10 @@
                     </fieldset>
                     <fieldset class="small-6 columns">
                         <form name="addParticipantForm">
-                            <input type="text" ng-model="participantName" required ng-disabled="status != 'paused'"
-                                   placeholder="Name des neuen Teilnehmers">
+                            <input type="text" ng-model="participantName" required ng-disabled="status != 'build' && status != 'paused'"
+                                   placeholder="Name des Teilnehmers">
                             <button type="submit" class="button" ng-click="addParticipant()"
-                                    ng-disabled="status != 'paused' || addParticipantForm.$invalid"
+                                    ng-disabled="(status != 'build' && status != 'paused') || addParticipantForm.$invalid"
                                     ng-confirm-click="Neuen Teilnehmer wirklich hinzufügen?"
                             >Teilnehmer hinzufügen
                             </button>

@@ -14,12 +14,17 @@ const ChallengeSchema = new Schema({
         baseScore: {
             type: Number,
             required: true,
-            default: 20
+            default: 0
         },
         matchPoints: {
             type: Number,
             required: true,
             default: 1
+        },
+        allowReplay: {
+            type: Boolean,
+            required: true,
+            default: true
         }
     },
     initialLineUp: [

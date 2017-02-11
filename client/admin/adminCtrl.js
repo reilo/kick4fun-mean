@@ -17,6 +17,12 @@ angular.module('kick4fun.adminCtrl', ['ngRoute'])
                 $scope.participants = result.data;
             });
 
+            $scope.startChallenge = function() {
+                ChallengeFactory.prepare(tid).then(function (result) {
+                    $window.location.reload();
+                })
+            };
+
             $scope.closeRound = function () {
                 ChallengeFactory.stop(tid).then(function (result) {
                     $window.location.reload();

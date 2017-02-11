@@ -540,8 +540,8 @@ function validateMatch(challenge, match) {
         return "One or more players are not participants"
     } else if (match.result[0] == match.result[1] || match.result[2] == match.result[3] || match.result[4] == match.result[5]) {
         return "Each set must have winner and looser"
-    } else if (findMatch(challenge, match)) {
-        return 'Match already played';
+    } else if (!challenge.options.allowReplay && findMatch(challenge, match)) {
+        return 'Already played match cannot be replayed';
     } else {
         return null;
     }

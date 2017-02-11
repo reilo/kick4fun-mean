@@ -40,6 +40,10 @@ angular.module('kick4fun.services', ['ngResource'])
                 return $http.get(CHALLENGE_URL  + tid);
             };
 
+            ChallengeFactory.prepare = function (tid) {
+                return $http.put(CHALLENGE_URL + tid + '/prepare', {});
+            };
+
             ChallengeFactory.stop = function (tid) {
                 return $http.put(CHALLENGE_URL + tid + '/stop', {});
             };
